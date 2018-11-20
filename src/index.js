@@ -1,6 +1,3 @@
-import React from 'react'
-import Sound from 'react-sound'
-import ReactDom from 'react-dom'
 import Muro from '../assets/column.png'
 import Muro2 from '../assets/column.png'
 import Piso from '../assets/horizontal.png'
@@ -10,25 +7,17 @@ import Back from '../assets/guy-back.png'
 import Left from '../assets/guy-left.png'
 import Right from '../assets/guy-right.png'
 import './style.css'
+import React from 'react'
+import Sound from 'react-sound'
+import ReactDom from 'react-dom'
 import Axios from 'axios'
 
 class Board extends React.Component{
 	constructor(props){
 		super(props)
-
 		this.state = {
-			Position: [[null]],
-			StartPos: {x: 0, y: 0},
-			EndPos: {x: 0, y: 0},
-			w: 20,
-			h: 10,
-			map: [[null]],
-			templateRows: '',
-			templateColumns: '',
-			width: 0,
-
+			Position: [[null]], StartPos: {x: 0, y: 0}, EndPos: {x: 0, y: 0}, w: 20, h: 10, map: [[null]], templateRows: '', templateColumns: '', width: 0
 		}
-
 		this.Generator()
 	}
 
@@ -52,7 +41,6 @@ Generator() {
 				}
 
 				for (var i = 0; i < res.data.length; i++) {
-
 					newMaze.push([]);
 					newGuy.push([]);
 
@@ -81,9 +69,9 @@ Generator() {
 					}
 				}
 
+
 				newMaze[newMaze.length-2][newMaze[0].length-2] = Goal;
 				this.setState({EndPos: {x: newMaze.length-2, y: newMaze.length-2}})
-
 
 				var tempWidth = 0;
 				for (var i = 0; i < newMaze.length; i++) {
@@ -94,17 +82,9 @@ Generator() {
 					gridCols += '30px ';
 					tempWidth += 30;
 				}
-
 				this.setState({
-					map: newMaze,
-					templateRows: gridRows,
-					templateColumns: gridCols,
-					width: tempWidth,
-					Position: newGuy
+					map: newMaze, templateRows: gridRows, templateColumns: gridCols, width: tempWidth, Position: newGuy
 				});
-			})
-			.catch(error => {
-				console.log(error);
 			})
 	}
 
@@ -132,8 +112,7 @@ Generator() {
 				tempPosition[y][x] = {};
 				tempPosition[y-1][x] = {backgroundImage: 'url(' +Back+ ')'};
 				this.setState({
-					Position: tempPosition,
-					StartPos: {x: x, y: y-1}
+					Position: tempPosition, StartPos: {x: x, y: y-1}
 				});
 					if (this.state.EndPos.x == x && this.state.EndPos.y == y-1) {
 						alert("Has llegado al final !")
@@ -149,8 +128,7 @@ Generator() {
 				tempPosition[y][x] = {};
 				tempPosition[y+1][x] = {backgroundImage: 'url(' +Front+ ')'};
 				this.setState({
-					Position: tempPosition,
-					StartPos: {x: x, y: y+1}
+					Position: tempPosition, StartPos: {x: x, y: y+1}
 				});
 					if (this.state.EndPos.x == x && this.state.EndPos.y == y+1) {
 						alert("Has llegado al final !")
@@ -165,8 +143,7 @@ Generator() {
 				tempPosition[y][x] = {};
 				tempPosition[y][x-1] = {backgroundImage: 'url(' +Left+ ')'};
 				this.setState({
-					Position: tempPosition,
-					StartPos: {x: x-1, y: y}
+					Position: tempPosition, StartPos: {x: x-1, y: y}
 				});
 
 					if (this.state.EndPos.x == x-1 && this.state.EndPos.y == y) {
@@ -185,8 +162,7 @@ Generator() {
 				tempPosition[y][x] = {};
 				tempPosition[y][x+1] = {backgroundImage: 'url(' +Right+ ')'};
 				this.setState({
-					Position: tempPosition,
-					StartPos: {x: x+1, y: y}
+					Position: tempPosition, StartPos: {x: x+1, y: y}
 				});
 					if (this.state.EndPos.x == x+1 && this.state.EndPos.y == y) {
 						alert("Has llegado al final !")
@@ -208,13 +184,7 @@ Generator() {
 
 	render(){
 	const gridStyle = {
-				position: 'absolute',
-				display: 'grid',
-				gridTemplateRows: this.state.templateRows,
-				gridTemplateColumns: this.state.templateColumns,
-				gridGap: '0px',
-				margin: '10px auto',
-				marginLeft: '600px',
+				position: 'absolute', display: 'grid', gridTemplateRows: this.state.templateRows, gridTemplateColumns: this.state.templateColumns, gridGap: '0px', margin: '10px auto', marginLeft: '600px',
 				width: this.state.width
 			}
 		return (
